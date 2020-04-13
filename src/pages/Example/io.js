@@ -12,6 +12,10 @@ ioContext.create('example', {
         method: "POST",
         formData: true
     },
+    mock: {
+        url: '/mock/action.json',
+        method: "GET"
+    },
 })
 export default ioContext.api.example
 

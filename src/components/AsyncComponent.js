@@ -1,6 +1,6 @@
 import React from 'react'
 import Loadable from 'react-loadable'
-import { Spin } from 'antd'
+import { Spin } from 'antd-design-extend'
 
 const LoadingComponent = (props) => {
   const { isLoading, error, pastDelay } = props

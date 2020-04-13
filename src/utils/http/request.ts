@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { fetch } from "whatwg-fetch";
-import { notification } from "antd";
+import { notification } from "antd-design-extend";
 import hash from "hash.js";
 import { stringify } from "qs";
 import { responseInterceptor } from "./interceptor";

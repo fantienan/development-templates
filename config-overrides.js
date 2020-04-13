@@ -4,7 +4,7 @@ const {
     addLessLoader,
     addDecoratorsLegacy,
     overrideDevServer
-} = require('customize-cra');
+} = require('customize-cra')
 
 const addProxy = () => (configFunction) => {
     configFunction.proxy = {
@@ -12,6 +12,13 @@ const addProxy = () => (configFunction) => {
             target: 'http://192.168.1.123:8081',
             pathRewrite: { "^/api": "" },
             changeOrigin: true
+        },
+        '/mock/*': {
+            target: 'http://localhost:4000',
+            pathRewrite: {
+                "^/mock": "",
+                ".mock": ".json"
+            },
         }
     }
     return configFunction;
@@ -20,7 +27,7 @@ const addProxy = () => (configFunction) => {
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
-            libraryName: 'antd',
+            libraryName: 'antd-design-extend',
             libraryDirectory: 'es',
             style: true,
         }),
