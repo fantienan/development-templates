@@ -10,7 +10,7 @@ function Layouts(props) {
       <Switch>
         <Route exact path="/login" component={AsyncComponent(() => import("../pages/Login"))} />
         {
-          routers.map(v => (<Guard
+          routers.map(v => (<Guard 
             key={v.key}
             exact={v.exact}
             path={v.path}

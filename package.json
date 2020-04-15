@@ -45,7 +45,8 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "type-check": "tsc --watch",
-    "mock-server": "cd mockServer && hs -p 4000 -a localhost"
+    "mock-server": "cd mockServer && hs -p 4000 -a localhost",
+    "commit": "git add . && git cz"
   },
   "eslintConfig": {
     "extends": "react-app"

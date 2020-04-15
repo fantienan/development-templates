@@ -6,7 +6,7 @@ export const routers = [
         to: '/example',
         path: '/example',
         component: "pages/Example",
-        exact: true,
+        exact: true, 
         children: [],
     }
 ]
