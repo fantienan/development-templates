@@ -10,17 +10,12 @@ function Layouts(props) {
       <Switch>
         <Route exact path="/login" component={AsyncComponent(() => import("../pages/Login"))} />
         {
-          routers.map(v => {
-            const Cmp = v.component
-            return (
-              <Guard
-                key={v.key}
-                exact={v.exact}
-                path={v.path}
-                component={Cmp}
-              />
-            )
-          })
+          routers.map(v => (<Guard
+            key={v.key}
+            exact={v.exact}
+            path={v.path}
+            component={AsyncComponent(() => import(`../${v.component}`))}
+          />))
         }
         <Route path="/404" component={AsyncComponent(() => import("../pages/NotFound"))} />
         <Route render={() => <Redirect to="/404" />} />
