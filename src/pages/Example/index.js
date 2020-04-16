@@ -4,14 +4,22 @@ import schema from 'async-validator-extend'
 import io from './io'
 import Store from './store'
 import { useLocalStore, Observer, useObserver } from 'mobx-react'
-
+import { useQuery } from 'react-query'
+import Mock from 'mockjs'
 const { Form } = Custom
 
 export default function Example(props) {
     const [count, setCount] = React.useState(1)
     const store = useLocalStore(() => new Store())
     const rules = [{ required: true, message: '请输入密码!' }]
-
+    const { status, data, error } = useQuery('todos', fetchTodoList)
+    function fetchTodoList(...argus) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve({data: 1232})
+            },2000)
+        })
+    }
     // 初始值 
     const initialValues = {
         // date: '2017-08-08',
