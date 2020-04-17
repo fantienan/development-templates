@@ -3,8 +3,10 @@ const {
     fixBabelImports,
     addLessLoader,
     addDecoratorsLegacy,
-    overrideDevServer
+    overrideDevServer,
+    addWebpackAlias
 } = require('customize-cra')
+const path = require('path')
 
 const addProxy = () => (configFunction) => {
     configFunction.proxy = {
@@ -23,7 +25,6 @@ const addProxy = () => (configFunction) => {
     }
     return configFunction;
 }
-
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
@@ -37,7 +38,12 @@ module.exports = {
                 '@primary-color': '#1890ff'
             },
         }),
-        addDecoratorsLegacy()
+        addDecoratorsLegacy(),
+        addWebpackAlias({
+            /* eslint-disable */
+            ['io-context']: path.resolve(__dirname, 'src/utils/http/io-context.ts'),
+            /* eslint-enable */
+        })
     ),
     devServer: overrideDevServer(
         addProxy()

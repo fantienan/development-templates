@@ -5,7 +5,6 @@ import io from './io'
 import Store from './store'
 import { useLocalStore, Observer, useObserver } from 'mobx-react'
 import { useQuery } from 'react-query'
-import Mock from 'mockjs'
 const { Form } = Custom
 
 export default function Example(props) {
@@ -67,6 +66,12 @@ export default function Example(props) {
     const goto = () =>{
         props.history.push('/404')
     }
+
+    React.useEffect(() => {
+        return () =>{
+            store.destroy()
+        }
+    })
     return (
         <div>
             <Button onClick={() => setCount(count + 1)}>count ++({count})</Button>

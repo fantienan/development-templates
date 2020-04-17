@@ -1,5 +1,5 @@
 // 状态管理
-import { observable, action } from 'mobx'
+import { observable, action, runInAction } from 'mobx'
 
 export default class Store {
     @observable childCount = 1
@@ -10,5 +10,13 @@ export default class Store {
     }
     @action addBrotherCount() {
         this.brotherCount += 1
+    }
+
+    @action destroy() {
+        runInAction(() => {
+            this.childCount = 1
+            this.brotherCount = 1
+            this.treeList = undefined
+        })
     }
 }
