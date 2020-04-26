@@ -22,6 +22,7 @@
 
 `yarn mock` or `npm run mock`
 
+
 ```jsx
 /**
  * 1. 接口声明
@@ -133,3 +134,23 @@ export default routers
 ## 布局
 
 > src/layouts
+
+
+## 提交代码
+
+1. 安装 [commitizen](https://github.com/commitizen/cz-cli.git)
+
+`
+yarn add commitizen -g `or` npm install commitizen -g
+`
+2. 接下来，通过输入以下命令，初始化您的项目以使用cz-convention -changelog适配器:
+
+`
+commitizen init cz-conventional-changelog --save-dev --save-exact
+`
+
+或者你用的是yarn:
+
+`
+commitizen init cz-conventional-changelog --yarn --dev --exact
+`
