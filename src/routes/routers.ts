@@ -13,6 +13,7 @@ export interface Routers {
 }
 
 export const routers: Routers[] = [
+  /* @create-app-script-split-start*/
   {
     key: 'login',
     to: 'login',
@@ -50,4 +51,5 @@ export const routers: Routers[] = [
     path: '/404',
     component: 'utils/404',
   }
+  /* @create-app-script-split-end*/
 ]
