@@ -19,6 +19,7 @@
 `yarn type-check` or `npm run type-check`
 
 ## mock server
+
 `yarn mock` or `npm run mock`
 
 ```jsx
@@ -48,7 +49,7 @@ io.mock().fetch();
 > 用于在 React 中获取、缓存和更新异步数据的钩子
 
 ```jsx
-import {useQuery} from "react-query";
+import { useQuery } from "react-query";
 
 export default function Example() {
   const { status, data, error } = useQuery("todos", fetchTodoList);
@@ -74,8 +75,61 @@ export default function Example() {
 ```
 
 ## example
+
 > src/pages/Example/index.js
 
 ## 路由
-> src/routes/routers.js
-> src/routes/Layout.js
+
+> src/routes/routers.ts
+
+配置子路由，通常在需要为多个路径增加 layout 组件时使用。
+
+
+```ts
+export interface Routers {
+  key: string
+  name?: string
+  to?: string
+  path: string
+  component: string | (() => any)
+  exact?: boolean
+  wrappers?: string[]
+  redirect?: string
+  routes?: any[]
+  [k: string]: any
+}
+
+const routers: Routers[] = [
+  {
+    key: 'login',
+    to: 'login',
+    path: '/login',
+    component: 'pages/Login',
+    exact: true,
+  },
+  {
+    key: "layouts",
+    path: "/",
+    component: "layouts",
+    routes: [
+      {
+        key: 'uc',
+        name: 'uc',
+        path: '/uc',
+        popover: true,
+        exact: true,
+      }
+    ]
+  },
+  {
+    key: '404',
+    path: '/404',
+    component: 'utils/404',
+  }
+]
+export default routers
+```
+
+## 布局
+
+> src/layouts

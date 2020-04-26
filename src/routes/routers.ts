@@ -41,7 +41,6 @@ const routers: Routers[] = [
         name: 'uc',
         path: '/uc',
         popover: true,
-        component: "pages/Login",
         exact: true,
       }
     ]
