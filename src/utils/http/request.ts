@@ -65,8 +65,7 @@ const cachedSave = (response, hashcode) => {
  * @param  {object} [option] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(option) {
-  
+export default function request(option) { 
   let { url } = option;
   if (url.includes('apicm/')) {
     url = url.replace("api/", "")
@@ -161,6 +160,6 @@ export default function request(option) {
     })
     .then(response => responseInterceptor(response))
     .catch(e => {
-      throw e;
+      console.error(e)
     });
 }

@@ -1,9 +1,8 @@
 // 路由守卫
 import React from 'react'
-import { Route, Redirect, RouteProps, withRouter } from 'react-router-dom'
+import { Route, Redirect, RouteProps } from 'react-router-dom'
 
-function Guard(props: RouteProps): JSX.Element {
-    console.log(props)
+export default (props: RouteProps) => {
     const token = localStorage.getItem('token')
     if (token) {
         return <Route
@@ -19,5 +18,3 @@ function Guard(props: RouteProps): JSX.Element {
         }} />
     )
 }
-
-export default withRouter(Guard)

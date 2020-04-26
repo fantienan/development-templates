@@ -15,8 +15,8 @@ export default function Example(props) {
     function fetchTodoList(...argus) {
         return new Promise(resolve => {
             setTimeout(() => {
-                resolve({data: 1232})
-            },2000)
+                resolve({ data: 1232 })
+            }, 2000)
         })
     }
     // 初始值 
@@ -63,12 +63,11 @@ export default function Example(props) {
     const getMock = () => {
         io.mock().fetch()
     }
-    const goto = () =>{
+    const goto = () => {
         props.history.push('/404')
     }
-
     React.useEffect(() => {
-        return () =>{
+        return () => {
             store.destroy()
         }
     })
