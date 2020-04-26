@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { AsyncComponent } from '../components/AsyncComponent'
-import routers from './routers'
+import {routers} from './routers'
 import Guard from '../wrappers/Guard'
 
 // 不需要路由守卫

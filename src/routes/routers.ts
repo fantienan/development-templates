@@ -12,7 +12,7 @@ export interface Routers {
   [k: string]: any
 }
 
-const routers: Routers[] = [
+export const routers: Routers[] = [
   {
     key: 'login',
     to: 'login',
@@ -51,4 +51,3 @@ const routers: Routers[] = [
     component: 'utils/404',
   }
 ]
-export default routers
