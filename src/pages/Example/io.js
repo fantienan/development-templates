@@ -1,5 +1,5 @@
 
-import ioContext from 'io-context';
+import ioContext from '@/utils/http/io-context';
 
 ioContext.create('example', {
     getEntityList: {

@@ -1,4 +1,5 @@
 {
+  "extends": "./alias.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -18,7 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "src"
   },
   "include": [
     "src"

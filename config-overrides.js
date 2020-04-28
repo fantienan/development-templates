@@ -41,7 +41,7 @@ module.exports = {
         addDecoratorsLegacy(),
         addWebpackAlias({
             /* eslint-disable */
-            ['io-context']: path.resolve(__dirname, 'src/utils/http/io-context.ts'),
+            '@': path.resolve(__dirname, 'src/'),
             /* eslint-enable */
         })
     ),
