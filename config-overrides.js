@@ -8,23 +8,6 @@ const {
 } = require('customize-cra')
 const path = require('path')
 
-const addProxy = () => (configFunction) => {
-    configFunction.proxy = {
-        '/api/*': {
-            target: 'http://192.168.1.123:8081',
-            pathRewrite: { "^/api": "" },
-            changeOrigin: true
-        },
-        '/mock/*': {
-            target: 'http://localhost:4000',
-            pathRewrite: {
-                "^/mock": "",
-                ".mock": ".json"
-            },
-        }
-    }
-    return configFunction;
-}
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
@@ -45,8 +28,22 @@ module.exports = {
             /* eslint-enable */
         })
     ),
-    devServer: overrideDevServer(
-        addProxy()
-    )
+    devServer: overrideDevServer(config => {
+        config.proxy = {
+            '/api/*': {
+                target: 'http://192.168.1.123:8081',
+                pathRewrite: { "^/api": "" },
+                changeOrigin: true
+            },
+            '/mock/*': {
+                target: 'http://localhost:4000',
+                pathRewrite: {
+                    "^/mock": "",
+                    ".mock": ".json"
+                },
+            }
+        }
+        return config
+    })
 }
 

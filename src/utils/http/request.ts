@@ -24,7 +24,6 @@ const codeMessage = {
 };
 
 const checkStatus = response => {
-  // console.log(response)
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -67,9 +66,6 @@ const cachedSave = (response, hashcode) => {
  */
 export default function request(option) { 
   let { url } = option;
-  if (url.includes('apicm/')) {
-    url = url.replace("api/", "")
-  }
   const options = {
     ...option
   };
@@ -103,7 +99,6 @@ export default function request(option) {
     newOptions.method === "DELETE"
   ) {
     if (!(newOptions.body instanceof FormData)) {
-      // console.log(url, 1)
       newOptions.headers = {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -120,7 +115,6 @@ export default function request(option) {
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
-      // console.log(url, 2)
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: "application/json",
@@ -160,6 +154,12 @@ export default function request(option) {
     })
     .then(response => responseInterceptor(response))
     .catch(e => {
+      if (e.name) {
+        return Promise.reject({
+          code: e.name, 
+          msg: `${e.name}: ${e.message}`
+        })
+      }
       console.error(e)
     });
 }
