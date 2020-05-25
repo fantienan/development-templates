@@ -12,6 +12,7 @@ export interface Routers {
   [k: string]: any
 }
 
+export const DEFAULT_ROUTER_PATH = '/xxx'
 export const routers: Routers[] = [
   /* @create-app-script-split-start*/
   {
