@@ -5,7 +5,7 @@ import {routers} from './routers'
 import Guard from '../wrappers/Guard'
 
 // 不需要路由守卫
-const exclude = ['/login']
+const exclude = ['/login', '/default']
 export default () => {
     const renderRouter = (routes = routers) => (routes.map(({
         key,

@@ -53,19 +53,7 @@ class RequestContext {
         controllerList[`${name}-${apiObjKey}-${++uid}`] = controller
         const { options, params } = this.getFinalOptionParam(apiObj[apiObjKey], param);
         const { formData, ...otherOptions } = options;
-        let fData = null;
-        if (formData && Object.values(params || {}).length) {
-          fData = new FormData();
-          Object.keys(params).forEach(key => {
-            fData.append(
-              key,
-              isObject(params[key]) ||
-                isArray(params[key]) ?
-                JSON.stringify(params[key]) :
-                params[key]
-            )
-          })
-        }
+        let fData = this.generateFormData(formData, params);
         return {
           fetch() {
             return request({
@@ -91,6 +79,21 @@ class RequestContext {
       }
     })
     return api$$obj
+  }
+  generateFormData(formData, params) {
+    if (formData && Object.values(params || {}).length) {
+      let fData = new FormData();
+      Object.keys(params).forEach(key => {
+        fData.append(
+          key,
+          isObject(params[key]) ||
+            isArray(params[key]) ?
+            JSON.stringify(params[key]) :
+            params[key]
+        )
+      })
+      return fData
+    }
   }
   // 设置restful路径
   getFinalOptionParam(options, params) {

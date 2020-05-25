@@ -17,13 +17,13 @@ export const debounce = (fn, num = 800, param = {}) => {
     return (...argus) => {
         let e = {}
         const data = []
-        (argus || []).forEach(v => {
-            if (typeof v.stopPropagation === 'function') {
-                e = { ...v }
-            } else {
-                data.push(v)
-            }
-        })
+            (argus || []).forEach(v => {
+                if (typeof v.stopPropagation === 'function') {
+                    e = { ...v }
+                } else {
+                    data.push(v)
+                }
+            })
         window.clearTimeout(timer)
         timer = setTimeout((event, data) => {
             typeof fn === 'function' && fn({ ...param, event, data })
@@ -49,7 +49,7 @@ export const transStyleObjToStr = obj => {
     if (!isObject(obj)) {
         throw new Error('argus is must be object')
     }
-    
+
     return Object.keys(obj).reduce((acc, key) => {
         acc += `${key}:${obj[key]};`
         return acc
@@ -60,9 +60,25 @@ export const transStyleStrToObj = str => {
     if (!isString(str)) {
         throw new Error('argus is must be string')
     }
-    return str.split(';').filter(_=>_).reduce((acc, cur) => {
+    return str.split(';').filter(_ => _).reduce((acc, cur) => {
         const [key, value] = cur.split(':')
         acc[key.trim()] = value.trim()
         return acc
     }, {})
+}
+
+let uId = 1
+export const generateUid = () => uId++
+
+export const getCookie = () => document.cookie.split(';').reduce((acc, cur) => {
+    const [key, value] = cur.split('=')
+    acc[key.trim()] = value.trim()
+    return acc
+}, {})
+
+export const setCookie = (name, value) => {
+    var Days = 30
+    var exp = new Date()
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000)
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString()
 }

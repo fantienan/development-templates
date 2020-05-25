@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { fetch } from "whatwg-fetch";
-import { notification } from "antd-design-extend";
 import hash from "hash.js";
 import { stringify } from "qs";
+import { notification } from "antd-design-extend";
 import { responseInterceptor } from "./interceptor";
 
 const codeMessage = {
@@ -64,7 +64,7 @@ const cachedSave = (response, hashcode) => {
  * @param  {object} [option] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(option) { 
+export default function request(option) {
   let { url } = option;
   const options = {
     ...option
@@ -82,7 +82,7 @@ export default function request(option) {
     // credentials: 'include',
   };
   const newOptions = { ...defaultOptions, ...options };
-  
+
   // 判断是否为GET请求
   if (newOptions.method === "GET") {
     newOptions.headers = {
@@ -90,7 +90,15 @@ export default function request(option) {
       // "Content-Type": "application/json",
     };
     const { body } = newOptions;
-    url = body ? `${url}${stringify(body) ? `?${stringify(body)}` : ""}` : url;
+    /* eslint-disable-next-line */
+    const pattern = /\{[^\}\/]*\}/g
+    if (pattern.test(url)) {
+      Object.keys(body).forEach(key => {
+        url = url.replace(`{${key}}`, body[key])
+      })
+    } else {
+      url = body ? `${url}${stringify(body) ? `?${stringify(body)}` : ""}` : url;
+    }
     delete newOptions.body;
   }
   if (
@@ -102,15 +110,7 @@ export default function request(option) {
       newOptions.headers = {
         Accept: "application/json",
         "Content-Type": "application/json",
-        token: localStorage.getItem("token")
-          ? localStorage.getItem("token")
-          : "",
-        oid: localStorage.getItem("org_id")
-          ? localStorage
-              .getItem("org_id")
-              .replace(/'/g, "")
-              .replace(/"/g, "")
-          : "",
+        token: localStorage.getItem("token") || "",
         ...newOptions.headers
       };
       newOptions.body = JSON.stringify(newOptions.body);
@@ -121,7 +121,7 @@ export default function request(option) {
         token: localStorage.getItem("token"),
         ...newOptions.headers
       };
-    } 
+    }
   }
 
   const expirys = options.expirys && 60;
@@ -139,7 +139,7 @@ export default function request(option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
-  
+
 
   return fetch(url, newOptions)
     .then(checkStatus)
@@ -156,7 +156,7 @@ export default function request(option) {
     .catch(e => {
       if (e.name) {
         return Promise.reject({
-          code: e.name, 
+          code: e.name,
           msg: `${e.name}: ${e.message}`
         })
       }
