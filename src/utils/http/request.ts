@@ -4,6 +4,7 @@ import hash from "hash.js";
 import { stringify } from "qs";
 import { notification } from "antd-design-extend";
 import { responseInterceptor } from "./interceptor";
+import {getCookie} from "../tools"
 
 const codeMessage = {
   200: "服务器成功返回请求的数据。",
@@ -66,6 +67,7 @@ const cachedSave = (response, hashcode) => {
  */
 export default function request(option) {
   let { url } = option;
+  const token = localStorage.getItem("token") || getCookie().token ||""
   const options = {
     ...option
   };
@@ -110,7 +112,7 @@ export default function request(option) {
       newOptions.headers = {
         Accept: "application/json",
         "Content-Type": "application/json",
-        token: localStorage.getItem("token") || "",
+        token,
         ...newOptions.headers
       };
       newOptions.body = JSON.stringify(newOptions.body);
@@ -118,7 +120,7 @@ export default function request(option) {
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: "application/json",
-        token: localStorage.getItem("token"),
+        token,
         ...newOptions.headers
       };
     }
