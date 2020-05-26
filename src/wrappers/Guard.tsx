@@ -5,7 +5,7 @@ import { DEFAULT_ROUTER_PATH } from '../routes/routers'
 import { getCookie } from '@/utils/tools'
 
 export default (props: RouteProps) => {
-    const { token } = getCookie() as {[k: string]: string}
+    const token = localStorage.getItem("token") || (getCookie() as {[k: string]: string}).token 
     const isRoot = window.location.pathname === '/'
     if (token) {
         return <>

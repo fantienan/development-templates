@@ -16,6 +16,7 @@ export default (props: Props) => {
         if (pattern.test(search)) {
             // 设置token
             setCookie('token', RegExp.$3)
+            localStorage.setItem("token", RegExp.$3)
             const patt = new RegExp(/^(.*)(&redirect=)([^?&]{1,})(.*)/g)
             if (patt.test(search)) {
                 history.push(RegExp.$3)
